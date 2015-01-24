@@ -6,7 +6,6 @@ import (
 	"code.google.com/p/gopacket/pcap"
 	"fmt"
 	"net"
-	// "reflect"
 )
 
 func main() {
@@ -26,6 +25,8 @@ func main() {
 		var sourcePort uint16
 		var destinationPort uint16
 		var tOS uint8
+
+		// flowFields := make(map[string])
 
 		parser := gopacket.NewDecodingLayerParser(layers.LayerTypeEthernet, &eth, &ip4, &ip6, &tcp, &udp)
 		decoded := []gopacket.LayerType{}
@@ -57,4 +58,27 @@ func main() {
 		}
 
 	}
+}
+
+type FlowPayload struct {
+	SourceIP        [4]byte
+	DestinationIp   [4]byte
+	NextHop         [4]byte
+	Input           [2]byte
+	Output          [2]byte
+	dPkts           [4]byte
+	dOctets         [4]byte
+	First           [4]byte
+	Last            [4]byte
+	SourcePort      [2]byte
+	DestinationPort [2]byte
+	Pad1            byte
+	TCPFlags        byte
+	Prot            byte
+	Tos             byte
+	SrcAS           [2]byte
+	DstAs           [2]byte
+	SrcMask         byte
+	DstMask         byte
+	Pad2            [2]byte
 }
